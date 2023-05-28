@@ -1,0 +1,19 @@
+body{
+    background-color:#f1f1f1 !important;
+  }
+  .form-holder{
+    margin-top:20%;
+    margin-bottom:20%;
+  }
+  .profile-pic {
+    width: 50px; /* Adjust the width as needed */
+    height: 50px; /* Adjust the height as needed */
+    border-radius: 50%; /* Creates a circular shape */
+    overflow: hidden; /* Clips any overflowing parts of the image */
+  }
+
+  .profile-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Maintains the aspect ratio and covers the entire container */
+  }
