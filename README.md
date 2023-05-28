@@ -1,4 +1,4 @@
-# Project Name
+# Social Media App
 
 This project utilizes PHP version 8.1.13, Laravel Installer version 4.5.0, and a MySQL database.
 
