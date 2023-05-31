@@ -21,10 +21,10 @@
                             @csrf
                             @method('post')
                             <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" name="email" class="form-control" placeholder="Email" />
-                                @if ($errors->has('email'))
-                                    <p class="text-danger">{{ $errors->first('email') }}</p>
+                                <label>Email or Username</label>
+                                <input type="text" name="login" class="form-control" placeholder="Email" />
+                                @if ($errors->has('login'))
+                                    <p class="text-danger">{{ $errors->first('login') }}</p>
                                 @endif
                             </div>
                             <div class="form-group">
@@ -40,6 +40,15 @@
                                 </div>
                                 <div class="col-4 text-right">
                                     <input type="submit" class="btn btn-primary" value=" Login " />
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                <a href="{{ route('auth.google') }}" class="btn btn-light btn-block mt-4">
+                                 <img src="{{ asset('img/google.png') }}" alt="Google Logo" width="20px" height="20px">
+                                     Sign in with Google
+                                 </a>
                                 </div>
                             </div>
                         </form>

@@ -30,18 +30,28 @@ class Post extends Model
     }
 
     public function likedByUser()
-{
-    return $this->likes()->where('user_id', auth()->user()->id)->exists();
-}
+    {
+        return $this->likes()->where('user_id', auth()->user()->id)->exists();
+    }
 
-public function dislikedByUser()
-{
-    return $this->dislikes()->where('user_id', auth()->user()->id)->exists();
-}
+    public function dislikedByUser()
+    {
+        return $this->dislikes()->where('user_id', auth()->user()->id)->exists();
+    }
 
-public function bookmarks(): BelongsToMany
-{
-    return $this->belongsToMany(User::class, 'bookmarks');
-}
+    public function bookmarks(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'bookmarks');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    protected $fillable = [
+
+        'image',
+    ];
 
 }

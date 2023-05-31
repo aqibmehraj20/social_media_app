@@ -19,7 +19,7 @@
                             @method('post')
                             <div class="form-group">
                                 <label>Username</label>
-                                <input type="text" name="name" class="form-control" placeholder="name" />
+                                <input type="text" value="{{ old('name') }}" name="name" class="form-control" placeholder="name" />
                                 @if ($errors->has('name'))
                                     <p class="text-danger">{{ $errors->first('name') }}</p>
                                 @endif
@@ -27,7 +27,7 @@
 
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="email" name="email" class="form-control" placeholder="Email" />
+                                <input type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="Email" />
                                 @if ($errors->has('email'))
                                     <p class="text-danger">{{ $errors->first('email') }}</p>
                                 @endif
@@ -35,14 +35,14 @@
 
                             <div class="form-group">
                                 <label>Password</label>
-                                <input type="password" name="password" class="form-control" placeholder="Password" />
+                                <input type="password" name="password" value="{{ old('password') }}" class="form-control" placeholder="Password" />
                                 @if ($errors->has('password'))
                                     <p class="text-danger">{{ $errors->first('password') }}</p>
                                 @endif
                             </div>
                             <div class="form-group">
                                 <label>Confirm Password</label>
-                                <input type="password" name="password_confirmation" class="form-control"
+                                <input type="password" name="password_confirmation" value="{{ old('password') }}" class="form-control"
                                     placeholder="Password Confirmation" />
                             </div>
 

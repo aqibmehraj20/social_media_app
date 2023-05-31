@@ -16,12 +16,16 @@
     </div>
 @endif
 
-<form method="POST" action="{{ route('posts.store') }}">
+<form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
     @csrf
 
     <div class="form-group">
                 <label for="description">Description</label>
         <textarea name="description" id="description" rows="3">{{ old('description') }}</textarea>
+    </div>
+    <div class="form-group">
+        <label for="image">Image</label>
+        <input type="file" name="image" id="image">
     </div>
 
     <div>

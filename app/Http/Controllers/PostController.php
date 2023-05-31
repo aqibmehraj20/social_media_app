@@ -8,6 +8,9 @@ use App\Models\Like;
 use App\Models\Dislike;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
+use App\Models\Comment;
+use Illuminate\Support\Facades\Storage;
+
 
 class PostController extends Controller
 {
@@ -15,7 +18,11 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::latest()->paginate(10);
-        return view('home', compact('posts'));
+
+        // Retrieve comments for all posts
+        $comments = Comment::whereIn('post_id', $posts->pluck('id'))->get();
+
+        return view('home', compact('posts', 'comments'));
     }
 
 
@@ -28,10 +35,21 @@ class PostController extends Controller
     {
         $validatedData = $request->validate([
             'description' => 'required|string|max:10000',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+
         ]);
+        $imagePath = $request->file('image')->store('public/images');
+
+
 
         $post = new Post();
         $post->description = $validatedData['description'];
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $filename = time().'.'.$image->getClientOriginalExtension();
+            $path = $image->storeAs('public/post', $filename);
+            $post->image = $filename;
+        }
         $post->user_id = auth()->user()->id;
         $post->save();
 
@@ -125,6 +143,17 @@ class PostController extends Controller
 
         return response()->json(['success' => false]);
     }
+
+    public function getPostWithComments($postId)
+{
+    $post = Post::with('comments')->findOrFail($postId);
+    $postHtml = view('posts.show', compact('post'))->render();
+
+    return response()->json([
+        'success' => true,
+        'postHtml' => $postHtml,
+    ]);
+}
 
 
 }

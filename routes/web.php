@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
+
 
 
 
@@ -18,6 +20,10 @@ Route::group(['middleware'=>'guest'],function(){
 
     Route::get('register',[AuthController::class,'register_view'])->name('register');
     Route::post('register',[AuthController::class,'register'])->name('register')->middleware('throttle:2,1');
+
+    Route::get('/auth/google',[AuthController::class,'redirectToGoogle'])->name('auth.google');
+    Route::get('/auth/google/callback',[AuthController::class,'handleGoogleCallback'])->name('handle.google.callback');
+
 });
 
 
@@ -38,6 +44,12 @@ Route::group(['middleware'=>'auth'],function(){
     Route::post('/like', [PostController::class, 'like'])->name('like');
     Route::post('/dislike', [PostController::class, 'dislike'])->name('dislike');
     Route::post('/bookmark', [PostController::class, 'bookmark'])->name('bookmark');
+
+    Route::post('/comment/add', [CommentController::class, 'addComment'])->name('comment.add');
+    Route::post('/comment/like',  [CommentController::class, 'likeComment'])->name('comment.like');
+    Route::post('/comment/dislike',  [CommentController::class, 'dislikeComment'])->name('comment.dislike');
+    Route::get('/post/{postId}', [PostController::class, 'getPostWithComments'])->name('post.show');
+
 
 });
 
